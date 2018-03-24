@@ -30,7 +30,7 @@ func ImagesPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	defer http.Redirect(w, r, "/images/"+handler.Filename, 302)
+	defer http.Redirect(w, r, "/images/100/"+handler.Filename, 302)
 	defer file.Close()
 
 	if _, err := os.Stat(workingDirectory); os.IsNotExist(err) {

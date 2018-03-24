@@ -20,6 +20,7 @@ import (
 	"image/png"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
@@ -41,13 +42,16 @@ func ImageFormShow(w http.ResponseWriter, r *http.Request) {
 func ImageShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	var buff bytes.Buffer
+	size := vars["size"]
 	imageID := vars["imageId"]
+
 	src, imgFormat, err := openImage(workingDirectory + imageID)
 	if err != nil {
 		fmt.Println(errors.Wrap(err, "cannot find the image file"))
 	}
 	imgWidth, imgHeight := src.Bounds().Max.X, src.Bounds().Max.Y
-	newWidth, newHeight := 200, 200
+	newWidth, err := strconv.Atoi(size)
+	newHeight := newWidth
 	// new size of image
 	if imgWidth > imgHeight {
 		newHeight = int(float32(newHeight) * float32(imgHeight) / float32(imgWidth))

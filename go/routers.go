@@ -76,7 +76,7 @@ var routes = Routes{
 	Route{
 		"ImageShow",
 		"GET",
-		"/images/{imageId}",
+		"/images/{size}/{imageId}",
 		ImageShow,
 	},
 }
